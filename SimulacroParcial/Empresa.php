@@ -78,22 +78,21 @@ class Empresa {
 
     public function registrarVenta($colCodigosMoto, $objCliente) {
         $importeFinalVenta = 0;
-        $motosVendidas = [];
-        foreach ($colCodigosMoto as $codigo) {
-            $objetoMoto = $this->retornarMoto($codigo);
-            if ($objetoMoto) {
-                if ($objetoMoto->getActiva() && $objCliente->getEstadoCliente()) {
-                    $importeFinalVenta += $objetoMoto->darPrecioVenta();
-                    $motosVendidas[] = $objetoMoto;
+        if ($objCliente->getEstadoCliente()) {
+            $nuevaVenta = new Venta($this->generarNumeroVenta(), date("Y-m-d"), $objCliente, [], $importeFinalVenta);
+            foreach ($colCodigosMoto as $codigo) {
+                $objetoMoto = $this->retornarMoto($codigo);
+                if ($objetoMoto) {
+                    $nuevaVenta->incorporarMoto($objetoMoto);
                 }
             }
+            $importeFinalVenta = $nuevaVenta->getPrecioFinal(); 
+            if ($importeFinalVenta > 0) {
+                $coleccionVentas = $this->getColObjVenta();
+                $coleccionVentas[] = $nuevaVenta;
+                $this->setColObjVenta($coleccionVentas);
+            }        
         }
-        if (count($motosVendidas)>0) {
-            $objVenta = new Venta($this->generarNumeroVenta(), date("Y-m-d"), $objCliente, $motosVendidas, $importeFinalVenta);
-            $coleccionVentas = $this->getColObjVenta();
-            $coleccionVentas[] = $objVenta;
-            $this->setColObjVenta($coleccionVentas);
-        } 
         return $importeFinalVenta;
     }
     
