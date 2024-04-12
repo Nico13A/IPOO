@@ -62,7 +62,9 @@ class Moto {
             $costoMoto = $this->getCostoMoto();
             $anioFabricacion = $this->getAnioFabricacion();
             $por_inc_anual = $this->getPorcentajeIncrementoAnual();
-            $valorVenta = $costoMoto + $costoMoto * ($anioFabricacion * ($por_inc_anual/100)); 
+            $anioActual = intval(date('Y'));
+            $anio = $anioActual - $anioFabricacion;
+            $valorVenta = $costoMoto + $costoMoto * ($anio * ($por_inc_anual/100)); 
         }
         return $valorVenta;
     }
