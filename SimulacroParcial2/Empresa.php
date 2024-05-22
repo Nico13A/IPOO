@@ -118,8 +118,9 @@ class Empresa {
     public function informarVentasImportadas() {
         $ventasImportadas = [];
         foreach ($this->getColObjVenta() as $objVenta) {
-            foreach ($objVenta->retornarMotosImportadas() as $motoImportada) {
-                $ventasImportadas[] = $motoImportada;
+            $motosImportadas = $objVenta->retornarMotosImportadas();
+            if ($motosImportadas>0) {
+                $ventasImportadas[] = $objVenta;
             }
         }
         return $ventasImportadas;
