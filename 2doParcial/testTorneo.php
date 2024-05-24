@@ -79,12 +79,12 @@ foreach ($equiposDeBasquetGanadores as $objEquipo) {
 }
 
 // darGanadores(‘futbol’) y visualizar el resultado.
-/*
+
 $equiposDeFutbolGanadores = $objTorneo->darGanadores("futbol");
 echo "Equipo ganadores de fútbol:\n";
 foreach ($equiposDeFutbolGanadores as $objEquipo) {
     echo $objEquipo;
-}*/
+}
 
 // calcularPremioPartido con cada uno de los partidos obtenidos en a,b,c.
 /*
